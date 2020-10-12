@@ -6,9 +6,10 @@ import com.palmergames.bukkit.towny.exceptions.TownyException;
 import com.palmergames.bukkit.towny.object.Town;
 import com.stoneskies.feudalism.FeudalismMain;
 import com.stoneskies.feudalism.Interfaces.RuinAPI;
-import com.stoneskies.feudalism.Util.ChatInfo;
-import org.bukkit.Bukkit;
+import com.stoneskies.feudalism.events.Ruin.RuinEvent;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 
 public class RuinListener implements Listener {
@@ -25,6 +26,7 @@ public class RuinListener implements Listener {
             // if the mayor is npc, helps with ruined town purge
             if (!town.getMayor().isNPC()) {
                 event.setCancelled(true);
+                Player mayor = town.getMayor().getPlayer();
                 // make the mayor an npc
                 try {
                     adminCommand.adminSet(new String[]{"mayor", town.getName(), "npc"});
@@ -64,7 +66,8 @@ public class RuinListener implements Listener {
                 long time = System.currentTimeMillis();
                 // save the ruined town to database
                 RuinAPI.SaveRuinedTown(town, time);
-                Bukkit.broadcastMessage(ChatInfo.msg("&7" + town.getName() + " has become a ruined town."));
+                RuinEvent customevent = new RuinEvent(mayor, town);
+                FeudalismMain.plugin.getServer().getPluginManager().callEvent(customevent);
             } else {
                 // if config ruin-enabled is false don't do anything
                 event.setCancelled(false);
