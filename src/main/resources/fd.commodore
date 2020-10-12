@@ -11,5 +11,8 @@ fd {
   }
   ruin {
         reclaim;
+        assign {
+          player brigadier:string single_word;
+        }
   }
 }
