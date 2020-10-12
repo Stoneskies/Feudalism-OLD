@@ -1,4 +1,4 @@
-package com.stoneskies.feudalism.Commands.Debug;
+package com.stoneskies.feudalism.Commands.Ruin;
 
 import com.palmergames.bukkit.towny.TownyUniverse;
 import com.palmergames.bukkit.towny.exceptions.NotRegisteredException;

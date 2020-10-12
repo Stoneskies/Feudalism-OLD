@@ -1,5 +1,6 @@
 package com.stoneskies.feudalism.Commands.Debug;
 
+import com.stoneskies.feudalism.Commands.Ruin.DebugRuinCommands;
 import com.stoneskies.feudalism.Interfaces.RuinAPI;
 import com.stoneskies.feudalism.Util.ChatInfo;
 import org.bukkit.command.CommandSender;

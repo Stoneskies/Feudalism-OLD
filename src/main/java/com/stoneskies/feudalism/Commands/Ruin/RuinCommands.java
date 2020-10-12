@@ -6,7 +6,7 @@ import com.palmergames.bukkit.towny.object.Resident;
 import com.stoneskies.feudalism.FeudalismMain;
 import com.stoneskies.feudalism.Interfaces.RuinAPI;
 import com.stoneskies.feudalism.Util.ChatInfo;
-import org.bukkit.Bukkit;
+import com.stoneskies.feudalism.events.Ruin.ReclaimEvent;
 import org.bukkit.command.CommandSender;
 
 public class RuinCommands {
@@ -29,8 +29,8 @@ public class RuinCommands {
                                     if (RuinAPI.isRuined(resident.getTown())) {
                                         // reclaim the town under the resident's name
                                         RuinAPI.reclaim(resident);
-                                        resident.getPlayer().sendMessage(ChatInfo.msg("&7Town reclaimed, lead it into a better era."));
-                                        Bukkit.broadcastMessage(ChatInfo.msg("&7" + resident.getName() + " has reclaimed " + resident.getTown().getName()));
+                                        ReclaimEvent customevent = new ReclaimEvent(resident, resident.getTown());
+                                        FeudalismMain.plugin.getServer().getPluginManager().callEvent(customevent);
                                     } else {
                                         resident.getPlayer().sendMessage(ChatInfo.msg("&cYour town isn't ruined."));
                                     }
