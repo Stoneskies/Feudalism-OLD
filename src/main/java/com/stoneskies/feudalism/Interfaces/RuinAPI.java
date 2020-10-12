@@ -52,44 +52,43 @@ public class RuinAPI {
             Bukkit.getConsoleSender().sendMessage(ChatInfo.msg("&7No files found to purge"));
         }
     }
-    public static void reclaim(Resident resident) {
+    public static void reclaim(Resident resident, Town town) {
         String filename;
-        try {
-            filename = resident.getTown().getName() + ".yml";
-            // check db
-            if (checkDatabase(filename)) {
+        filename = town.getName() + ".yml";
+        // check db
+        if (checkDatabase(filename)) {
+            try {
+                // save the old mayor to memory
+                Resident mayor = town.getMayor();
+                // set the reclaimer to be the mayor
+                if(resident.getTown() != town) {
+                    resident.removeTown();
+                    resident.setTown(town);
+                }
+                town.setMayor(resident);
                 try {
-                    // save the old mayor to memory
-                    Resident mayor = resident.getTown().getMayor();
-                    // set the reclaimer to be the mayor
-                    resident.getTown().setMayor(resident);
-                    try {
-                        // reset permissions to normal
-                        for (String element : new String[]{"outsiderBuild",
-                                "outsiderDestroy", "outsiderSwitch",
-                                "outsiderItemUse", "allyBuild", "allyDestroy",
-                                "allySwitch", "allyItemUse", "nationBuild", "nationDestroy",
-                                "nationSwitch", "nationItemUse",
-                                "pvp", "fire", "explosion", "mobs"}) {
-                            resident.getTown().getPermissions().set(element, false);
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    // reset permissions to normal
+                    for (String element : new String[]{"outsiderBuild",
+                            "outsiderDestroy", "outsiderSwitch",
+                            "outsiderItemUse", "allyBuild", "allyDestroy",
+                            "allySwitch", "allyItemUse", "nationBuild", "nationDestroy",
+                            "nationSwitch", "nationItemUse",
+                            "pvp", "fire", "explosion", "mobs"}) {
+                        town.getPermissions().set(element, false);
                     }
-                    // delete the old mayor from the towny db
-                    mayor.removeTown();
-                    RuinAPI.clearresidentNPCs();
-                    // set the new board
-                    resident.getTown().setBoard(resident.getTown().getName() + " has returned under the leadership of " + resident.getName());
-
-                } catch (TownyException e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
-                // delete the file in the database
-                ruinedtown.delete();
+                // delete the old mayor from the towny db (and other resident npcs)
+                RuinAPI.clearresidentNPCs();
+                // set the new board
+               town.setBoard(resident.getTown().getName() + " has returned under the leadership of " + resident.getName());
+
+            } catch (TownyException e) {
+                e.printStackTrace();
             }
-        } catch (NotRegisteredException e) {
-            e.printStackTrace();
+            // delete the file in the database
+            ruinedtown.delete();
         }
     }
 

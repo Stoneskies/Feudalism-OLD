@@ -5,6 +5,10 @@ ruin-enabled: true
 enable-permissions: true
 # time it takes the town to count as expired.
 time-till-expiration: 86400000
-# Whether or not to enable resident reclaimation
+# Whether or not to enable resident reclamation
 enable-resident-reclaiming: true
+# Whether or not to enable nation king reclamation
+enable-nation-reclaiming: true
+# Permission which a person must have to reclaim a town for a nation
+nation-reclaiming-permission: towny.command.nation.add
 # --------------------
