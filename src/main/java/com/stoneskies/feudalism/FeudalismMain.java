@@ -2,6 +2,7 @@ package com.stoneskies.feudalism;
 
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import com.stoneskies.feudalism.Commands.Feudalism;
+import com.stoneskies.feudalism.Commands.Ruin.TownRuinTabCompleter;
 import com.stoneskies.feudalism.Interfaces.RuinAPI;
 import com.stoneskies.feudalism.Listeners.RuinListener;
 import com.stoneskies.feudalism.Util.ChatInfo;
@@ -13,7 +14,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.File;
 import java.io.IOException;
 
 public final class FeudalismMain extends JavaPlugin {
@@ -21,7 +21,6 @@ public final class FeudalismMain extends JavaPlugin {
     public static void setPlugin(FeudalismMain plugin) {
         FeudalismMain.plugin = plugin;
     } // plugin var setter
-    public File configFile = new File(this.getDataFolder(), "config.yml"); // config.yml file var
 
     @Override
     public void onEnable() {
@@ -46,6 +45,7 @@ public final class FeudalismMain extends JavaPlugin {
         //commands
         PluginCommand command = getCommand("fd");
         command.setExecutor(new Feudalism());
+        command.setTabCompleter(new TownRuinTabCompleter());
         //schedules
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, RuinAPI.ExpiredRuinedTownPurge, 0L, 72000L); // schedule for purging expired ruined towns
 

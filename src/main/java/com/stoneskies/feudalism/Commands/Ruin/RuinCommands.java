@@ -102,7 +102,7 @@ public class RuinCommands {
                                                                 } catch (NotRegisteredException e) {
                                                                     e.printStackTrace();
                                                                 }
-                                                            }).setTitle(ChatInfo.msg("&b" + sender.getName() + " wants you to reclaim " + town.getName() + " for the nation.")).runOnCancel(() -> {sender.sendMessage(ChatInfo.msg("&b" + newmayor.getName() + " refused your suggestion"));}).sendTo(newmayor.getPlayer());
+                                                            }).setTitle(ChatInfo.msg("&b" + sender.getName() + " wants you to reclaim " + town.getName() + " for the nation.")).runOnCancel(() -> sender.sendMessage(ChatInfo.msg("&b" + newmayor.getName() + " refused your suggestion"))).sendTo(newmayor.getPlayer());
                                                         }).setTitle(ChatInfo.msg("&bAre you sure you want " + newmayor.getName() + " to own " + town.getName() + "?")).sendTo(sender);
                                                     } else {sender.sendMessage(ChatInfo.msg("That player is currently offline."));}
                                                 } else {

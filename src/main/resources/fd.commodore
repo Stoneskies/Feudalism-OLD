@@ -10,9 +10,11 @@ fd {
     clearnpcs;
   }
   ruin {
-        reclaim;
-        assign {
-          player brigadier:string single_word;
-        }
+    reclaim;
+    assign {
+      player brigadier:string single_word{
+        town brigadier:string single_word;
+      }
+    }
   }
 }
