@@ -9,7 +9,6 @@ import com.stoneskies.feudalism.Interfaces.RuinAPI;
 import com.stoneskies.feudalism.events.Ruin.RuinEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 
 public class RuinListener implements Listener {

@@ -50,7 +50,7 @@ public class RuinCommands {
                                                 e.printStackTrace();
                                             }
                                             // send the confirmation message
-                                        }).setTitle("Are you sure you want to reclaim this town?").sendTo(sender);
+                                        }).setTitle("Are you sure you want to reclaim " + finalResident.getTown() + "?").sendTo(sender);
                                     } else {
                                         resident.getPlayer().sendMessage(ChatInfo.msg("&cYour town isn't ruined."));
                                     }
@@ -91,7 +91,7 @@ public class RuinCommands {
                                                                 ReclaimEvent customevent;
                                                                 try {
                                                                     // call the reclaim event
-                                                                    customevent = new ReclaimEvent(finalResident, finalResident1.getTown());
+                                                                    customevent = new ReclaimEvent(newmayor, town);
                                                                     FeudalismMain.plugin.getServer().getPluginManager().callEvent(customevent);
                                                                 } catch (NotRegisteredException e) {
                                                                     e.printStackTrace();
@@ -101,8 +101,8 @@ public class RuinCommands {
                                                                 } catch (NotRegisteredException e) {
                                                                     e.printStackTrace();
                                                                 }
-                                                            }).sendTo(newmayor.getPlayer());
-                                                        }).sendTo(sender);
+                                                            }).setTitle(ChatInfo.msg("&b" + sender.getName() + "wants you to own " + town.getName())).runOnCancel(() -> {ChatInfo.msg("&b" + newmayor.getName() + " refused your suggestion");}).sendTo(newmayor.getPlayer());
+                                                        }).setTitle(ChatInfo.msg("&bAre you sure you want " + newmayor.getName() + " to own " + town.getName() + "?")).sendTo(sender);
                                                     } else {sender.sendMessage(ChatInfo.msg("That player is currently offline."));}
                                                 } else {
                                                     sender.sendMessage(ChatInfo.msg("That player is currently a mayor."));
