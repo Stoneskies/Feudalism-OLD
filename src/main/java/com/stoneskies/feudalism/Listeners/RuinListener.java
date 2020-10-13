@@ -17,10 +17,13 @@ public class RuinListener implements Listener {
 
 
     @EventHandler
-    public void onTownDelete(PreDeleteTownEvent event) {
+    public void onTownDelete(PreDeleteTownEvent event) throws TownyException {
         town = event.getTown();
         // if ruined towns in config are enabled
         if(FeudalismMain.plugin.getConfig().getBoolean("ruin-enabled")) {
+            if(town.isCapital()) {
+                adminCommand.parseAdminNationCommand(new String[] {town.getNation().getName(), "delete"});
+            }
             // if the mayor is npc, helps with ruined town purge
             if (!town.getMayor().isNPC()) {
                 event.setCancelled(true);
