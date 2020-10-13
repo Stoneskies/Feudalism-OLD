@@ -85,6 +85,7 @@ public class RuinCommands {
                                                     if(newmayor.getPlayer().isOnline()) {
                                                         // send both confirmation messages
                                                         Confirmation.runOnAccept(() -> {
+                                                            sender.sendMessage(ChatInfo.msg("&bSent request to " + newmayor.getName()));
                                                             Confirmation.runOnAccept(() -> {
                                                                 // reclaiming the town and calling the event
                                                                 RuinAPI.reclaim(newmayor, town);
@@ -101,7 +102,7 @@ public class RuinCommands {
                                                                 } catch (NotRegisteredException e) {
                                                                     e.printStackTrace();
                                                                 }
-                                                            }).setTitle(ChatInfo.msg("&b" + sender.getName() + "wants you to own " + town.getName())).runOnCancel(() -> {ChatInfo.msg("&b" + newmayor.getName() + " refused your suggestion");}).sendTo(newmayor.getPlayer());
+                                                            }).setTitle(ChatInfo.msg("&b" + sender.getName() + " wants you to reclaim " + town.getName() + " for the nation.")).runOnCancel(() -> {sender.sendMessage(ChatInfo.msg("&b" + newmayor.getName() + " refused your suggestion"));}).sendTo(newmayor.getPlayer());
                                                         }).setTitle(ChatInfo.msg("&bAre you sure you want " + newmayor.getName() + " to own " + town.getName() + "?")).sendTo(sender);
                                                     } else {sender.sendMessage(ChatInfo.msg("That player is currently offline."));}
                                                 } else {

@@ -3,11 +3,11 @@ package com.stoneskies.feudalism.Listeners;
 import com.palmergames.bukkit.towny.command.TownyAdminCommand;
 import com.palmergames.bukkit.towny.event.PreDeleteTownEvent;
 import com.palmergames.bukkit.towny.exceptions.TownyException;
+import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.Town;
 import com.stoneskies.feudalism.FeudalismMain;
 import com.stoneskies.feudalism.Interfaces.RuinAPI;
 import com.stoneskies.feudalism.events.Ruin.RuinEvent;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
@@ -17,17 +17,21 @@ public class RuinListener implements Listener {
 
 
     @EventHandler
-    public void onTownDelete(PreDeleteTownEvent event) throws TownyException {
+    public void onTownDelete(PreDeleteTownEvent event) {
         town = event.getTown();
         // if ruined towns in config are enabled
         if(FeudalismMain.plugin.getConfig().getBoolean("ruin-enabled")) {
             if(town.isCapital()) {
-                adminCommand.parseAdminNationCommand(new String[] {town.getNation().getName(), "delete"});
+                try {
+                    adminCommand.parseAdminNationCommand(new String[] {town.getNation().getName(), "delete"});
+                } catch (TownyException e) {
+                    e.printStackTrace();
+                }
             }
             // if the mayor is npc, helps with ruined town purge
             if (!town.getMayor().isNPC()) {
                 event.setCancelled(true);
-                Player mayor = town.getMayor().getPlayer();
+                Resident mayor = town.getMayor();
                 // make the mayor an npc
                 try {
                     adminCommand.adminSet(new String[]{"mayor", town.getName(), "npc"});
@@ -67,7 +71,7 @@ public class RuinListener implements Listener {
                 long time = System.currentTimeMillis();
                 // save the ruined town to database
                 RuinAPI.SaveRuinedTown(town, time);
-                RuinEvent customevent = new RuinEvent(mayor, town);
+                RuinEvent customevent = new RuinEvent(mayor.getPlayer(), town);
                 FeudalismMain.plugin.getServer().getPluginManager().callEvent(customevent);
             } else {
                 // if config ruin-enabled is false don't do anything
