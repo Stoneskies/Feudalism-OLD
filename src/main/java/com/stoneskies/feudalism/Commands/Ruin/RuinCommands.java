@@ -25,19 +25,22 @@ public class RuinCommands {
             switch (args[1]) {
                 // reclaim command
                 case "reclaim":
+                    // if resident reclaiming is enabled
                         if (FeudalismMain.plugin.getConfig().getBoolean("enable-resident-reclaiming")) {
                             if (resident.hasTown()) {
                                 try {
-                                    // see if the resident's town is ruined
-                                    if (RuinAPI.isRuined(resident.getTown())) {
+                                    // see if the mentioned town is ruined
+                                    if (RuinAPI.isRuined(resident.getTown())) { //todo remove this
                                         Resident finalResident = resident;
                                         Resident finalResident1 = resident;
+                                        // send them a confirmation message
                                         Confirmation.runOnAccept(() -> {
                                             // reclaim the town under the resident's name
                                             try {
                                                 RuinAPI.reclaim(finalResident, finalResident1.getTown());
                                                 ReclaimEvent customevent;
                                                 try {
+                                                    // call the reclaim event
                                                     customevent = new ReclaimEvent(finalResident, finalResident1.getTown());
                                                     FeudalismMain.plugin.getServer().getPluginManager().callEvent(customevent);
                                                 } catch (NotRegisteredException e) {
@@ -46,7 +49,8 @@ public class RuinCommands {
                                             } catch (NotRegisteredException e) {
                                                 e.printStackTrace();
                                             }
-                                        }).sendTo(sender);
+                                            // send the confirmation message
+                                        }).setTitle("Are you sure you want to reclaim this town?").sendTo(sender);
                                     } else {
                                         resident.getPlayer().sendMessage(ChatInfo.msg("&cYour town isn't ruined."));
                                     }
@@ -63,19 +67,35 @@ public class RuinCommands {
                 case "assign":
                     if (args.length >= 3) {
                         if (args.length >= 4) {
+                            // if nation reclaiming is enabled
                             if (FeudalismMain.plugin.getConfig().getBoolean("enable-nation-reclaiming")) {
+                                // if they have the nation reclaiming permission
                                 if (sender.hasPermission(FeudalismMain.plugin.getConfig().getString("nation-reclaiming-permission"))) {
                                     try {
                                         Town town = TownyAPI.getInstance().getDataSource().getTown(args[3]);
                                         Resident newmayor = TownyAPI.getInstance().getDataSource().getResident(args[2]);
                                         Resident cmdsender = TownyAPI.getInstance().getDataSource().getResident(sender.getName());
+                                        // if town is ruined
                                         if (RuinAPI.isRuined(town)) {
+                                            // if town is in the same nation
                                             if (town.getNation() == cmdsender.getTown().getNation()) {
+                                                // if the newmayor is not a mayor
                                                 if (!newmayor.isMayor()) {
+                                                    // if he is online
                                                     if(newmayor.getPlayer().isOnline()) {
+                                                        // send both confirmation messages
                                                         Confirmation.runOnAccept(() -> {
                                                             Confirmation.runOnAccept(() -> {
+                                                                // reclaiming the town and calling the event
                                                                 RuinAPI.reclaim(newmayor, town);
+                                                                ReclaimEvent customevent;
+                                                                try {
+                                                                    // call the reclaim event
+                                                                    customevent = new ReclaimEvent(finalResident, finalResident1.getTown());
+                                                                    FeudalismMain.plugin.getServer().getPluginManager().callEvent(customevent);
+                                                                } catch (NotRegisteredException e) {
+                                                                    e.printStackTrace();
+                                                                }
                                                                 try {
                                                                     TownyMessaging.sendNationMessagePrefixed(town.getNation(), "§b" + newmayor.getName() + " has been assigned to " + town.getName());
                                                                 } catch (NotRegisteredException e) {
