@@ -4,7 +4,6 @@ import com.palmergames.bukkit.towny.object.Nation;
 import com.palmergames.bukkit.towny.object.Town;
 import com.stoneskies.feudalism.Util.ChatInfo;
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
@@ -30,18 +29,14 @@ public class TownWarDeclareEvent extends Event {
         if(!warfile.exists()) {
             warfile.getParentFile().mkdir();
             warfile.createNewFile();
-            try {
-                wardata.load(warfile);
-                wardata.set("attacker", nation.getName());
-                wardata.set("defender", town.getName());
-                wardata.set("warscore", 0);
-                wardata.set("time-started", time);
-                wardata.set("nationtownsoccupied", null);
-                wardata.set("nationcapitaloccupied", false);
-                wardata.set("townoccupied", false);
-            } catch (InvalidConfigurationException e) {
-                e.printStackTrace();
-            }
+            wardata.set("attacker", nation.getName());
+            wardata.set("defender", town.getName());
+            wardata.set("warscore", 0);
+            wardata.set("time-started", time);
+            wardata.set("nationtownsoccupied", null);
+            wardata.set("nationcapitaloccupied", false);
+            wardata.set("townoccupied", false);
+            wardata.save(warfile);
         }
     }
 
