@@ -6,7 +6,7 @@ import com.palmergames.bukkit.towny.exceptions.TownyException;
 import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.Town;
 import com.stoneskies.feudalism.FeudalismMain;
-import com.stoneskies.feudalism.Interfaces.RuinAPI;
+import com.stoneskies.feudalism.Methods.RuinAPI;
 import com.stoneskies.feudalism.events.Ruin.RuinEvent;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

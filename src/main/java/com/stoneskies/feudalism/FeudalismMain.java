@@ -3,10 +3,9 @@ package com.stoneskies.feudalism;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import com.stoneskies.feudalism.Commands.Feudalism;
 import com.stoneskies.feudalism.Commands.Ruin.TownRuinTabCompleter;
-import com.stoneskies.feudalism.Interfaces.RuinAPI;
+import com.stoneskies.feudalism.Methods.RuinAPI;
 import com.stoneskies.feudalism.Listeners.RuinListener;
 import com.stoneskies.feudalism.Util.ChatInfo;
-import com.stoneskies.feudalism.Util.ConfigLoad;
 import me.lucko.commodore.Commodore;
 import me.lucko.commodore.CommodoreProvider;
 import me.lucko.commodore.file.CommodoreFileFormat;
@@ -53,7 +52,7 @@ public final class FeudalismMain extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new RuinListener(), this); // register ruined town events
         RuinAPI.clearresidentNPCs(); // clear all non-mayor npcs
         //config and settings
-        ConfigLoad.LoadConfig();
+        plugin.saveDefaultConfig();
         //other
         // check if brigadier is supported
         if (CommodoreProvider.isSupported()) {

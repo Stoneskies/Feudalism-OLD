@@ -1,4 +1,4 @@
-package com.stoneskies.feudalism.Interfaces;
+package com.stoneskies.feudalism.Methods;
 
 import com.palmergames.bukkit.towny.TownyAPI;
 import com.palmergames.bukkit.towny.TownyUniverse;
@@ -26,10 +26,6 @@ public class RuinAPI {
     public static Path datafolder = Paths.get("plugins/Feudalism/database/ruinedtowns");
     private static final TownyAdminCommand adminCommand = new TownyAdminCommand(null);
 
-    /**
-     * Purges the entire ruined database.
-     */
-
     //TODO merge PurgeRuinedTowns() and PurgeExpiredRuinedTowns() into one method in the future, since they have a lot of duplicate code
     public static void PurgeRuinedTowns() {
         Path datafolder = Paths.get("plugins/Feudalism/database/ruinedtowns");
@@ -52,6 +48,7 @@ public class RuinAPI {
             Bukkit.getConsoleSender().sendMessage(ChatInfo.msg("&7No files found to purge"));
         }
     }
+
     public static void reclaim(Resident resident, Town town) {
         String filename;
         filename = town.getName() + ".yml";
@@ -92,9 +89,6 @@ public class RuinAPI {
         }
     }
 
-    /**
-     * Purges current expired ruined towns in the database.
-     */
     public static void PurgeExpiredRuinedTowns() {
         File[] ruinedtowns = datafolder.toFile().listFiles();
         ruinedtowndata = new YamlConfiguration();
@@ -121,12 +115,7 @@ public class RuinAPI {
             Bukkit.getConsoleSender().sendMessage(ChatInfo.msg("&7No files found to purge"));
         }
     }
-    /**
-     * Adds a town to the ruined town database
-     *
-     * @param town town entity
-     * @param time current time (used to count when town will fall)
-     */
+
     public static void SaveRuinedTown(Town town, long time) {
         // name of the town file, town.yml
         String ruinedtownstring = town.getName() + ".yml";
@@ -160,10 +149,6 @@ public class RuinAPI {
         }
     }
 
-    /**
-     * Deletes specified town
-     * @param town Town to delete
-     */
     public static void deleteTown(String town) {
         try {
             // delete town specified
