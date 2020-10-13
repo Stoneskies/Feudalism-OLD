@@ -6,7 +6,6 @@ import com.palmergames.bukkit.towny.exceptions.TownyException;
 import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.Town;
 import com.stoneskies.feudalism.FeudalismMain;
-import com.stoneskies.feudalism.Methods.RuinAPI;
 import com.stoneskies.feudalism.events.Ruin.RuinEvent;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -69,8 +68,7 @@ public class RuinListener implements Listener {
                 town.setOpen(false);
                 // save the current time to memory
                 long time = System.currentTimeMillis();
-                // save the ruined town to database
-                RuinAPI.SaveRuinedTown(town, time);
+                // save the ruined town to database and call event
                 RuinEvent customevent = new RuinEvent(mayor.getPlayer(), town);
                 FeudalismMain.plugin.getServer().getPluginManager().callEvent(customevent);
             } else {

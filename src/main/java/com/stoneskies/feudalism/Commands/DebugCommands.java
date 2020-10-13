@@ -1,4 +1,4 @@
-package com.stoneskies.feudalism.Commands.Debug;
+package com.stoneskies.feudalism.Commands;
 
 import com.stoneskies.feudalism.Commands.Ruin.DebugRuinCommands;
 import com.stoneskies.feudalism.Methods.RuinAPI;

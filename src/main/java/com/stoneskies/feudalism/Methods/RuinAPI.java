@@ -55,8 +55,6 @@ public class RuinAPI {
         // check db
         if (checkDatabase(filename)) {
             try {
-                // save the old mayor to memory
-                Resident mayor = town.getMayor();
                 // set the reclaimer to be the mayor
                 if(resident.getTown() != town) {
                     resident.removeTown();
@@ -113,39 +111,6 @@ public class RuinAPI {
         } else {
             // no ruined towns found in the database
             Bukkit.getConsoleSender().sendMessage(ChatInfo.msg("&7No files found to purge"));
-        }
-    }
-
-    public static void SaveRuinedTown(Town town, long time) {
-        // name of the town file, town.yml
-        String ruinedtownstring = town.getName() + ".yml";
-        ruinedtown = new File("plugins/Feudalism/database/ruinedtowns", ruinedtownstring);
-        ruinedtowndata = new YamlConfiguration();
-        // if the file doesn't exist
-        if (!ruinedtown.exists()) {
-            try {
-                // create it
-                ruinedtown.getParentFile().mkdir();
-                ruinedtown.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        // load the file's data
-        try {
-            ruinedtowndata.load(ruinedtown);
-        } catch (IOException | InvalidConfigurationException e) {
-            e.printStackTrace();
-        }
-        // set the variables
-        ruinedtowndata.set("time-fallen", time);
-        ruinedtowndata.set("name", town.getName());
-        ruinedtowndata.set("mayor", town.getMayor().getName());
-        try {
-            // save the file
-            ruinedtowndata.save(ruinedtown);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
