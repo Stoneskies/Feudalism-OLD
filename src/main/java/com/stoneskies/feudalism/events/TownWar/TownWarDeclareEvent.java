@@ -38,6 +38,8 @@ public class TownWarDeclareEvent extends Event {
                 wardata.set("nationtownsoccupied", null);
                 wardata.set("nationcapitaloccupied", false);
                 wardata.set("townoccupied", false);
+                wardata.set("attackerkillscore", 0);
+                wardata.set("defenderkillscore", 0);
                 wardata.save(warfile);
             }
             town.setAdminEnabledPVP(true);

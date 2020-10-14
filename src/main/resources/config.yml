@@ -15,3 +15,6 @@ nation-reclaiming-permission: towny.command.nation.add
 # Town War Config
 # --------------------
 townwar-enabled: true
+# Maximum amount possible to be gained by killing residents in a town war.
+# Single kill score is equal to this divided by the amount of residents in the nation/town,
+townwar-maxkillscore: 50
