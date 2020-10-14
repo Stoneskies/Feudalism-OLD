@@ -3,6 +3,7 @@ package com.stoneskies.feudalism.Listeners;
 import com.palmergames.bukkit.towny.TownyUniverse;
 import com.palmergames.bukkit.towny.event.PlayerChangePlotEvent;
 import com.palmergames.bukkit.towny.exceptions.NotRegisteredException;
+import com.palmergames.bukkit.towny.object.Nation;
 import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.Town;
 import com.stoneskies.feudalism.FeudalismMain;
@@ -41,9 +42,20 @@ public class TownWarListener implements Listener {
                 File file = TownWarAPI.getWarData(town.getName());
                 YamlConfiguration wardata = new YamlConfiguration();
                 wardata.load(file);
+                if (wardata.getInt("attackerkillscore") < FeudalismMain.plugin.getConfig().getInt("townwar-maximumkillscore")) {
+                    wardata.set("attackerkillscore", wardata.getInt("attackerkillscore") + FeudalismMain.plugin.getConfig().getInt("townwar-maximumkillscore")/town.getNumResidents());
+                    wardata.set("warscore", wardata.getInt("warscore") + FeudalismMain.plugin.getConfig().getInt("townwar-maximumkillscore")/town.getNumResidents());
+
+                }
+            }
+            if (TownyUniverse.getInstance().getDataSource().getResident(event.getEntity().getName()).getTown().hasNation() && TownWarAPI.isNationAtWar(TownyUniverse.getInstance().getDataSource().getResident(event.getEntity().getName()).getTown().getNation().getName())) {
+                Nation nation = TownyUniverse.getInstance().getDataSource().getResident(event.getEntity().getName()).getTown().getNation();
+                File file = TownWarAPI.getWarData(nation.getName());
+                YamlConfiguration wardata = new YamlConfiguration();
+                wardata.load(file);
                 if (wardata.getInt("defenderkillscore") < FeudalismMain.plugin.getConfig().getInt("townwar-maximumkillscore")) {
-                    wardata.set("defenderkillscore", wardata.getInt("defenderkillscore") + FeudalismMain.plugin.getConfig().getInt("townwar-maximumkillscore")/town.getResidents().toArray().length);
-                    wardata.set("warscore", wardata.getInt("warscore") - FeudalismMain.plugin.getConfig().getInt("townwar-maximumkillscore")/town.getResidents().toArray().length);
+                    wardata.set("defenderkillscore", wardata.getInt("defenderkillscore") + FeudalismMain.plugin.getConfig().getInt("townwar-maximumkillscore")/nation.getNumResidents());
+                    wardata.set("warscore", wardata.getInt("warscore") + FeudalismMain.plugin.getConfig().getInt("townwar-maximumkillscore")/nation.getNumResidents());
 
                 }
             }
