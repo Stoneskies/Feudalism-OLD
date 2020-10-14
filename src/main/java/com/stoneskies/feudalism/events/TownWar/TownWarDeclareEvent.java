@@ -25,7 +25,7 @@ public class TownWarDeclareEvent extends Event {
     public TownWarDeclareEvent(Nation nation, Town town) throws IOException {
         if (FeudalismMain.plugin.getConfig().getBoolean("townwar-enabled")) {
             Bukkit.broadcastMessage(ChatInfo.msg("&b" + nation.getName() + " has declared war on the town of " + town.getName()));
-            String filename = nation.getName() + town.getName() + ".yml";
+            String filename = town.getName() + nation.getName() + ".yml";
             File warfile = new File("plugins/Feudalism/database/townwars", filename);
             YamlConfiguration wardata = new YamlConfiguration();
             if (!warfile.exists()) {

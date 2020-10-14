@@ -1,7 +1,5 @@
 package com.stoneskies.feudalism.Methods;
 
-import com.palmergames.bukkit.towny.object.Nation;
-import com.palmergames.bukkit.towny.object.Town;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -16,9 +14,9 @@ public class TownWarAPI {
     private static final YamlConfiguration wardata = new YamlConfiguration();
 
 
-    public static boolean isAtWar(Nation nation, Town town) {
+    public static boolean isAtWar(String nation, String town) {
         // name of the file, townnaton.yml
-        String warstring = town.getName() + nation.getName() + ".yml";
+        String warstring = town + nation + ".yml";
         // file of the inputted town
         File warfile = new File("plugins/Feudalism/database/townwars", warstring);
         boolean result = false;

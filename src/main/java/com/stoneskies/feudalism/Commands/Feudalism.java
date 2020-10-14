@@ -2,6 +2,7 @@ package com.stoneskies.feudalism.Commands;
 
 import com.palmergames.bukkit.towny.exceptions.NotRegisteredException;
 import com.stoneskies.feudalism.Commands.Ruin.RuinCommands;
+import com.stoneskies.feudalism.Commands.TownWar.TownWarCommands;
 import com.stoneskies.feudalism.Util.ChatInfo;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -26,6 +27,9 @@ public class Feudalism implements CommandExecutor {
                         } catch (NotRegisteredException e) {
                             e.printStackTrace();
                         }
+                        break;
+                    case "war":
+                        TownWarCommands.exec(sender, args);
                         break;
                     default:
                         // argument invalid
