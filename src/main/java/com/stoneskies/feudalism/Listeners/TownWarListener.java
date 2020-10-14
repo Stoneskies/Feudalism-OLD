@@ -36,14 +36,15 @@ public class TownWarListener implements Listener {
     @EventHandler
     public static void onKillEvent(PlayerDeathEvent event) throws NotRegisteredException, IOException, InvalidConfigurationException {
         if (event.getEntity().getKiller() != null) {
-            if (TownWarAPI.isTownAtWar(TownyUniverse.getInstance().getDataSource().getResident(event.getEntity().getName()).getTown().getName())) {
+            if (TownWarAPI.isTownAtWar(TownyUniverse.getInstance().getDataSource().getResident(event.getEntity().getName()).getTown().getName()) && !TownyUniverse.getInstance().getDataSource().getResident(event.getEntity().getName()).getTown().hasNation()) {
                 Town town = TownyUniverse.getInstance().getDataSource().getResident(event.getEntity().getName()).getTown();
                 File file = TownWarAPI.getWarData(town.getName());
                 YamlConfiguration wardata = new YamlConfiguration();
                 wardata.load(file);
                 if (wardata.getInt("defenderkillscore") < FeudalismMain.plugin.getConfig().getInt("townwar-maximumkillscore")) {
                     wardata.set("defenderkillscore", wardata.getInt("defenderkillscore") + FeudalismMain.plugin.getConfig().getInt("townwar-maximumkillscore")/town.getResidents().toArray().length);
-                    wardata.set("warscore", -(wardata.getInt("defenderkillscore") + FeudalismMain.plugin.getConfig().getInt("townwar-maximumkillscore")/town.getResidents().toArray().length));
+                    wardata.set("warscore", wardata.getInt("warscore") - FeudalismMain.plugin.getConfig().getInt("townwar-maximumkillscore")/town.getResidents().toArray().length);
+
                 }
             }
         }
