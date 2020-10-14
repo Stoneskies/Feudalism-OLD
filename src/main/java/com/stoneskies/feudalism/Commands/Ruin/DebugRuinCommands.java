@@ -9,7 +9,7 @@ import com.stoneskies.feudalism.Util.ChatInfo;
 import org.bukkit.command.CommandSender;
 
 public class DebugRuinCommands {
-    public static void cmd(CommandSender sender, String[] args) {
+    public static void exec(CommandSender sender, String[] args) {
         // args here: /fd debug townruin args[0] args[1] args[2]... since we passed in newargs which is args without the first 2 elements
         boolean result = false;
         if(args.length != 0) {

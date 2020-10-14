@@ -12,3 +12,6 @@ enable-nation-reclaiming: true
 # Permission which a person must have to reclaim a town for a nation
 nation-reclaiming-permission: towny.command.nation.add
 # --------------------
+# Town War Config
+# --------------------
+townwar-enabled: true
