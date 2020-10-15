@@ -24,7 +24,7 @@ public class DebugTownWarCommands {
                         Town town = TownyAPI.getInstance().getDataSource().getTown(args[1]);
                         if (!RuinAPI.isRuined(town)) {
                             if (!town.hasNation()) {
-                                if (resident.getTown() == town) {
+                                if (!(resident.getTown() == town)) {
                                     Confirmation.runOnAccept(() -> {
                                         TownWarDeclareEvent customevent;
                                         try {

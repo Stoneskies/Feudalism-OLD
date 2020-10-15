@@ -9,9 +9,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 public class TownWarAPI {
-    private static final Path datafolder = Paths.get("plugins/Feudalism/database/townwars");
-     private static final File[] wars = datafolder.toFile().listFiles();
-    private static final YamlConfiguration wardata = new YamlConfiguration();
+    private static Path datafolder = Paths.get("plugins/Feudalism/database/townwars");
+    private static File[] wars = datafolder.toFile().listFiles();
+    private static YamlConfiguration wardata = new YamlConfiguration();
 
 
     public static boolean isAtWar(String nation, String town) {

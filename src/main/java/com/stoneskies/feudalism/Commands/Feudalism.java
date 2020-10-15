@@ -8,6 +8,9 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.InvalidConfigurationException;
+
+import java.io.IOException;
 
 public class Feudalism implements CommandExecutor {
     @Override
@@ -29,7 +32,13 @@ public class Feudalism implements CommandExecutor {
                         }
                         break;
                     case "war":
-                        TownWarCommands.exec(sender, args);
+                        try {
+                            TownWarCommands.exec(sender, args);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        } catch (InvalidConfigurationException e) {
+                            e.printStackTrace();
+                        }
                         break;
                     default:
                         // argument invalid
