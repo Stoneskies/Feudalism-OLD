@@ -21,17 +21,19 @@ public class DebugRuinCommands {
                     RuinAPI.PurgeExpiredRuinedTowns();
                     break;
                 case "mayor":
-                    try {
-                        // check mayor's town
-                        Resident mayor = TownyUniverse.getInstance().getDataSource().getResident(args[1]);
-                        Town town = mayor.getTown();
-                        // return whatever the isRuined() value of said town is.
-                        result = RuinAPI.isRuined(town);
-                    } catch (NotRegisteredException e) {
-                        sender.sendMessage(ChatInfo.msg("&cCan't find a mayor with the name " + args[1]));
-                    }
-                    // send it to the player
-                    sender.sendMessage(String.valueOf(result));
+                    if (args.length > 2) {
+                        try {
+                            // check mayor's town
+                            Resident mayor = TownyUniverse.getInstance().getDataSource().getResident(args[1]);
+                            Town town = mayor.getTown();
+                            // return whatever the isRuined() value of said town is.
+                            result = RuinAPI.isRuined(town);
+                        } catch (NotRegisteredException e) {
+                            sender.sendMessage(ChatInfo.msg("&cCan't find a mayor with the name " + args[1]));
+                        }
+                        // send it to the player
+                        sender.sendMessage(String.valueOf(result));
+                    } else {sender.sendMessage(ChatInfo.msg("&cNot Enough Arguments."));}
                     break;
                 default:
                     sender.sendMessage(ChatInfo.msg("&c" + args[0] + " is not registered"));
