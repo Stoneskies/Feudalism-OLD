@@ -31,8 +31,8 @@ public class TownWarDeclareEvent extends Event {
             if (!warfile.exists()) {
                 warfile.getParentFile().mkdir();
                 warfile.createNewFile();
-                wardata.set("attacker", nation.getName());
-                wardata.set("defender", town.getName());
+                wardata.set("attacker", nation.getUuid());
+                wardata.set("defender", town.getUuid());
                 wardata.set("warscore", 0);
                 wardata.set("time-started", time);
                 wardata.set("nationtownsoccupied", null);

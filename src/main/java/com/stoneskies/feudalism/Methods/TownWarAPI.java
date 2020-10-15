@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.UUID;
 
 public class TownWarAPI {
     private static Path datafolder = Paths.get("plugins/Feudalism/database/townwars");
@@ -27,23 +28,23 @@ public class TownWarAPI {
         return result;
     }
 
-    public static boolean isTownAtWar(String townname) throws IOException, InvalidConfigurationException {
+    public static boolean isTownAtWar(UUID townuuid) throws IOException, InvalidConfigurationException {
         boolean result = false;
         if (wars != null) {
             for (File warfile : wars) {
                 wardata.load(warfile);
-                result = wardata.getString("defender").equals(townname);
+                result = UUID.fromString(wardata.getString("defender")).equals(townuuid);
             }
         }
         return result;
     }
 
-    public static boolean isNationAtWar(String nationname) throws IOException, InvalidConfigurationException {
+    public static boolean isNationAtWar(UUID nationuuid) throws IOException, InvalidConfigurationException {
         boolean result = false;
         if (wars != null) {
             for (File warfile : wars) {
                 wardata.load(warfile);
-                result = wardata.getString("attacker").equals(nationname);
+                result = UUID.fromString(wardata.getString("attacker")).equals(nationuuid);
             }
         }
         return result;
