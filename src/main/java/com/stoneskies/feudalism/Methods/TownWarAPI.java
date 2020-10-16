@@ -14,20 +14,6 @@ public class TownWarAPI {
     private static File[] wars = datafolder.toFile().listFiles();
     private static YamlConfiguration wardata = new YamlConfiguration();
 
-
-    public static boolean isAtWar(String nation, String town) {
-        // name of the file, townnaton.yml
-        String warstring = town + nation + ".yml";
-        // file of the inputted town
-        File warfile = new File("plugins/Feudalism/database/townwars", warstring);
-        boolean result = false;
-        // if the file exists
-        if (warfile.exists()) {
-            result = true;
-        }
-        return result;
-    }
-
     public static boolean isTownAtWar(UUID townuuid) throws IOException, InvalidConfigurationException {
         boolean result = false;
         if (wars != null) {
@@ -50,12 +36,12 @@ public class TownWarAPI {
         return result;
     }
 
-    public static File getWarData(String name) throws IOException, InvalidConfigurationException {
+    public static File getWarData(String uuid) throws IOException, InvalidConfigurationException {
         File file = null;
         if (wars != null) {
             for (File warfile : wars) {
                 wardata.load(warfile);
-                if (wardata.getString("attacker").equals(name) || wardata.getString("defender").equals(name)) {
+                if (wardata.getString("attacker").equals(uuid) || wardata.getString("defender").equals(uuid)) {
                     file = warfile;
                 }
             }

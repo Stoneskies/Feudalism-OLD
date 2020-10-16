@@ -25,7 +25,7 @@ public class TownWarCommands {
             if (resident.hasTown()) {
                 if (!resident.getTown().hasNation()) {
                     if (TownWarAPI.isTownAtWar(resident.getTown().getUuid())) {
-                        File file = TownWarAPI.getWarData(resident.getTown().getName());
+                        File file = TownWarAPI.getWarData(resident.getTown().getUuid().toString());
                         Town town = TownyUniverse.getInstance().getDataSource().getResident(sender.getName()).getTown();
                         Nation nation = TownyUniverse.getInstance().getDataSource().getNation(args[1]);
                         SimpleDateFormat sdf = new SimpleDateFormat("MMM d yyyy");
