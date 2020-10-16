@@ -19,7 +19,7 @@ public class TownWarAPI {
         if (wars != null) {
             for (File warfile : wars) {
                 wardata.load(warfile);
-                result = UUID.fromString(wardata.getString("defender")).equals(townuuid);
+                result = wardata.getString("defender").equals(townuuid.toString());
             }
         }
         return result;
@@ -30,18 +30,18 @@ public class TownWarAPI {
         if (wars != null) {
             for (File warfile : wars) {
                 wardata.load(warfile);
-                result = UUID.fromString(wardata.getString("attacker")).equals(nationuuid);
+                result = wardata.getString("attacker").equals(nationuuid.toString());
             }
         }
         return result;
     }
 
-    public static File getWarData(String uuid) throws IOException, InvalidConfigurationException {
+    public static File getWarData(UUID uuid) throws IOException, InvalidConfigurationException {
         File file = null;
         if (wars != null) {
             for (File warfile : wars) {
                 wardata.load(warfile);
-                if (wardata.getString("attacker").equals(uuid) || wardata.getString("defender").equals(uuid)) {
+                if (wardata.getString("attacker").equals(uuid.toString()) || wardata.getString("defender").equals(uuid.toString())) {
                     file = warfile;
                 }
             }

@@ -25,31 +25,35 @@ public class TownWarCommands {
             if (resident.hasTown()) {
                 if (!resident.getTown().hasNation()) {
                     if (TownWarAPI.isTownAtWar(resident.getTown().getUuid())) {
-                        File file = TownWarAPI.getWarData(resident.getTown().getUuid().toString());
-                        Town town = TownyUniverse.getInstance().getDataSource().getResident(sender.getName()).getTown();
-                        Nation nation = TownyUniverse.getInstance().getDataSource().getNation(args[1]);
-                        SimpleDateFormat sdf = new SimpleDateFormat("MMM d yyyy");
-                        wardata.load(file);
-                        sender.sendMessage("§6.oOo._________________.[ §e" + nation.getName() + " §6vs§e " + town.getName() + "§6 ]._________________.oOo.");
-                        sender.sendMessage("§2Warscore: §f" + wardata.getString("warscore"));
-                        sender.sendMessage("§2Started: §f" + sdf.format(wardata.getLong("time-started")));
-                        sender.sendMessage("§2Aggressor: §f" + nation.getFormattedName());
-                        sender.sendMessage("§2Defender: §f" + town.getFormattedName());
+                        File file = TownWarAPI.getWarData(resident.getTown().getUuid());
+                        if (file != null) {
+                            Town town = TownyUniverse.getInstance().getDataSource().getResident(sender.getName()).getTown();
+                            Nation nation = TownyUniverse.getInstance().getDataSource().getNation(args[1]);
+                            SimpleDateFormat sdf = new SimpleDateFormat("MMM d yyyy");
+                            wardata.load(file);
+                            sender.sendMessage("§6.oOo._________________.[ §e" + nation.getName() + " §6vs§e " + town.getName() + "§6 ]._________________.oOo.");
+                            sender.sendMessage("§2Warscore: §f" + wardata.getString("warscore"));
+                            sender.sendMessage("§2Started: §f" + sdf.format(wardata.getLong("time-started")));
+                            sender.sendMessage("§2Aggressor: §f" + nation.getFormattedName());
+                            sender.sendMessage("§2Defender: §f" + town.getFormattedName());
+                        }
                     } else {sender.sendMessage(ChatInfo.msg("&cYou aren't at war"));}
                 }
                 if (resident.getTown().hasNation()) {
                     if (TownWarAPI.isNationAtWar(resident.getTown().getNation().getUuid())) {
-                        File file = TownWarAPI.getWarData(resident.getTown().getNation().getName());
-                        YamlConfiguration wardata = new YamlConfiguration();
-                        Town town = TownyUniverse.getInstance().getDataSource().getTown(args[1]);
-                        Nation nation = resident.getTown().getNation();
-                        SimpleDateFormat sdf = new SimpleDateFormat("MMM d yyyy");
-                        wardata.load(file);
-                        sender.sendMessage("§6.oOo._________________.[ §e" + nation.getName() + " §6vs§e " + town.getName() + "§6 ]._________________.oOo.");
-                        sender.sendMessage("§2Warscore: §f" + wardata.getString("warscore"));
-                        sender.sendMessage("§2Started: §f" + sdf.format(wardata.getLong("time-started")));
-                        sender.sendMessage("§2Aggressor: §f" + nation.getFormattedName());
-                        sender.sendMessage("§2Defender: §f" + town.getFormattedName());
+                        File file = TownWarAPI.getWarData(resident.getTown().getNation().getUuid());
+                        if (file != null) {
+                            YamlConfiguration wardata = new YamlConfiguration();
+                            Town town = TownyUniverse.getInstance().getDataSource().getTown(args[1]);
+                            Nation nation = resident.getTown().getNation();
+                            SimpleDateFormat sdf = new SimpleDateFormat("MMM d yyyy");
+                            wardata.load(file);
+                            sender.sendMessage("§6.oOo._________________.[ §e" + nation.getName() + " §6vs§e " + town.getName() + "§6 ]._________________.oOo.");
+                            sender.sendMessage("§2Warscore: §f" + wardata.getString("warscore"));
+                            sender.sendMessage("§2Started: §f" + sdf.format(wardata.getLong("time-started")));
+                            sender.sendMessage("§2Aggressor: §f" + nation.getFormattedName());
+                            sender.sendMessage("§2Defender: §f" + town.getFormattedName());
+                        }
                     } else {sender.sendMessage(ChatInfo.msg("&cYou aren't at war"));}
                 }
             } else {sender.sendMessage(ChatInfo.msg("&cYou don't have a town."));}
