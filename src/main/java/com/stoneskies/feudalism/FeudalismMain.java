@@ -3,6 +3,7 @@ package com.stoneskies.feudalism;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import com.stoneskies.feudalism.Commands.Feudalism;
 import com.stoneskies.feudalism.Commands.Ruin.TownRuinTabCompleter;
+import com.stoneskies.feudalism.Listeners.CommandListener;
 import com.stoneskies.feudalism.Listeners.TownWarListener;
 import com.stoneskies.feudalism.Methods.RuinAPI;
 import com.stoneskies.feudalism.Listeners.RuinListener;
@@ -51,6 +52,7 @@ public final class FeudalismMain extends JavaPlugin {
         //events
         getServer().getPluginManager().registerEvents(new RuinListener(), this); // register ruined town listener
         getServer().getPluginManager().registerEvents(new TownWarListener(), this); // register townwar listener
+        getServer().getPluginManager().registerEvents(new CommandListener(), this); // register command listener
         RuinAPI.clearresidentNPCs(); // clear all non-mayor npcs
         //config and settings
         plugin.saveDefaultConfig();
