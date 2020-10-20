@@ -24,11 +24,13 @@ public class TownWarDeclareEvent extends Event {
 
     public TownWarDeclareEvent(Nation nation, Town town) throws IOException {
         if (FeudalismMain.plugin.getConfig().getBoolean("townwar-enabled")) {
+            // if war is enabled broadcast and create new file
             Bukkit.broadcastMessage(ChatInfo.msg("&b" + nation.getName() + " has declared war on the town of " + town.getName()));
             String filename = town.getName() + nation.getName() + ".yml";
             File warfile = new File("plugins/Feudalism/database/townwars", filename);
             YamlConfiguration wardata = new YamlConfiguration();
             if (!warfile.exists()) {
+                // set default values
                 warfile.getParentFile().mkdir();
                 warfile.createNewFile();
                 wardata.set("attacker", nation.getUuid().toString());
@@ -48,15 +50,15 @@ public class TownWarDeclareEvent extends Event {
             }
         }
     }
-
+    // get the time at which the event happened
     public static long getTime() {
         return time;
     }
-
+    // get the attacker
     public static Nation getAttacker() {
         return attacker;
     }
-
+    // get the defender
     public static Town getDefender() {
         return defender;
     }

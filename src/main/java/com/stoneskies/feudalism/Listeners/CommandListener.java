@@ -1,10 +1,10 @@
 package com.stoneskies.feudalism.Listeners;
 
 import com.palmergames.bukkit.towny.TownyUniverse;
-import com.palmergames.bukkit.towny.exceptions.EconomyException;
 import com.palmergames.bukkit.towny.exceptions.NotRegisteredException;
 import com.palmergames.bukkit.towny.object.Resident;
 import com.palmergames.bukkit.towny.object.Town;
+import com.stoneskies.feudalism.Util.ChatInfo;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -29,8 +29,8 @@ public class CommandListener implements Listener {
                     List<String> residentlist = getResidents(town);
 
                     SimpleDateFormat sdf = new SimpleDateFormat("MMM d yyyy");
-                    player.sendMessage(".oOo.________________.[ " + town.getFormattedName() + " ].________________.oOo.");
-                    player.sendMessage("Board: " + town.getBoard());
+                    player.sendMessage(".oOo.________.[ " + town.getFormattedName() + " ]._________.oOo.");
+                    ChatInfo.sendCenteredMessage(player, "Board: " + town.getBoard());
                     player.sendMessage("Founded: " + sdf.format(town.getRegistered()));
                     player.sendMessage("Town Size: " + town.getPurchasedBlocks() + " / " + town.getTotalBlocks());
                     player.sendMessage("Perm:");

@@ -22,12 +22,13 @@ public class TownWarListener implements Listener {
 
     @EventHandler
     public static void onTownEnter(PlayerChangePlotEvent event) {
-
+//todo add occupation
     }
 
     @EventHandler
     public static void onKillEvent(PlayerDeathEvent event) throws InvalidConfigurationException {
         try {
+            // if they are part of a town in a war
             if (event.getEntity().getKiller() != null && TownyAPI.getInstance().getDataSource().getResident(event.getEntity().getName()).hasTown()) {
                 Town town = null;
                 try {
@@ -44,6 +45,7 @@ public class TownWarListener implements Listener {
                         wardata.save(file);
                     }
                 }
+                // if they are part of a nation in a war
                 if (town.hasNation() && TownWarAPI.isNationAtWar(town.getNation().getUuid())) {
                     File file = TownWarAPI.getWarData(town.getNation().getUuid());
                     wardata.load(file);
