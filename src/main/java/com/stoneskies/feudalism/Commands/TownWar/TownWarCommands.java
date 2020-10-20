@@ -24,9 +24,12 @@ public class TownWarCommands {
             Resident resident = TownyAPI.getInstance().getDataSource().getResident(sender.getName());
             if (resident.hasTown()) {
                 if (!resident.getTown().hasNation()) {
+                    // if resident is part of town without nation
                     if (TownWarAPI.isTownAtWar(resident.getTown().getUuid())) {
+                        // if town is at war
                         File file = TownWarAPI.getWarData(resident.getTown().getUuid());
                         if (file != null) {
+                            // send message
                             Town town = TownyUniverse.getInstance().getDataSource().getResident(sender.getName()).getTown();
                             Nation nation = TownyUniverse.getInstance().getDataSource().getNation(args[1]);
                             SimpleDateFormat sdf = new SimpleDateFormat("MMM d yyyy");
@@ -40,9 +43,11 @@ public class TownWarCommands {
                     } else {sender.sendMessage(ChatInfo.msg("&cYou aren't at war"));}
                 }
                 if (resident.getTown().hasNation()) {
+                    // if resident is part of nation which is at war
                     if (TownWarAPI.isNationAtWar(resident.getTown().getNation().getUuid())) {
                         File file = TownWarAPI.getWarData(resident.getTown().getNation().getUuid());
                         if (file != null) {
+                            // send message
                             YamlConfiguration wardata = new YamlConfiguration();
                             Town town = TownyUniverse.getInstance().getDataSource().getTown(args[1]);
                             Nation nation = resident.getTown().getNation();

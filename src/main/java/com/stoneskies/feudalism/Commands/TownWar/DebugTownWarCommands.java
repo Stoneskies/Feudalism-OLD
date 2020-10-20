@@ -19,15 +19,19 @@ public class DebugTownWarCommands {
         switch (args[0]) {
             case "declare":
                 if (args.length >= 2) {
+                    // if they are king
                     Resident resident = TownyAPI.getInstance().getDataSource().getResident(sender.getName());
                     if (resident.isKing()) {
+                        // get the town from the arg
                         Town town = TownyAPI.getInstance().getDataSource().getTown(args[1]);
                         if (!RuinAPI.isRuined(town)) {
                             if (!town.hasNation()) {
                                 if (!(resident.getTown() == town)) {
+                                    // lambda expression
                                     Confirmation.runOnAccept(() -> {
                                         TownWarDeclareEvent customevent;
                                         try {
+                                            // call on event
                                             customevent = new TownWarDeclareEvent(resident.getTown().getNation(), town);
                                             FeudalismMain.plugin.getServer().getPluginManager().callEvent(customevent);
                                         } catch (IOException | NotRegisteredException e) {

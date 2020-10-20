@@ -33,6 +33,7 @@ public class Feudalism implements CommandExecutor {
                         break;
                     case "war":
                         try {
+                            // set the executor to be the town war commands class
                             TownWarCommands.exec(sender, args);
                         } catch (IOException e) {
                             e.printStackTrace();
